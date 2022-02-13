@@ -1,6 +1,8 @@
 package com.senai.devinhouse.CloudGames.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Plataforma {
@@ -15,6 +17,18 @@ public class Plataforma {
     @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "id_jogo", referencedColumnName = "id")
     private Jogo jogo;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "jogos_plataformas",
+            joinColumns = @JoinColumn(name = "plataforma_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "jogo_id", referencedColumnName = "id")
+    )
+    private List<Jogo> jogos = new ArrayList<>();
+
+    public void adicionarJogo(Jogo jogo) {
+        this.jogos.add(jogo);
+    }
 
     public Long getId() {
         return id;
