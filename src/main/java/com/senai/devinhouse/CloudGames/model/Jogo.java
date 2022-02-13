@@ -82,7 +82,7 @@ public class Jogo {
                 ", dataLancamento='" + dataLancamento +
                 ", capa='" + capa +
                 ", genero='" + genero +
-                //", plataformas=" + plataformas +
+                ", plataformas=" + plataformas +
                 '}';
     }
 }

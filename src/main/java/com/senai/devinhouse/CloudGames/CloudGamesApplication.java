@@ -1,5 +1,6 @@
 package com.senai.devinhouse.CloudGames;
 
+import com.senai.devinhouse.CloudGames.service.JogoService;
 import com.senai.devinhouse.CloudGames.service.PlataformaService;
 import com.senai.devinhouse.CloudGames.service.UsuarioService;
 import org.springframework.boot.CommandLineRunner;
@@ -13,12 +14,15 @@ public class CloudGamesApplication implements CommandLineRunner {
 
 	private final PlataformaService plataformaService;
 	private final UsuarioService usuarioService;
+	private final JogoService jogoService;
 	private boolean system = true;
 
 	public CloudGamesApplication(PlataformaService plataformaService,
-								 UsuarioService usuarioService) {
+								 UsuarioService usuarioService,
+								 JogoService jogoService) {
 		this.plataformaService = plataformaService;
 		this.usuarioService = usuarioService;
+		this.jogoService = jogoService;
 	}
 
 	public static void main(String[] args) {
@@ -34,6 +38,7 @@ public class CloudGamesApplication implements CommandLineRunner {
 			System.out.println("0 - Sair");
 			System.out.println("1 - Plataforma");
 			System.out.println("2 - Usuário");
+			System.out.println("3 - Jogo");
 
 			Integer function = scanner.nextInt();
 
@@ -43,6 +48,9 @@ public class CloudGamesApplication implements CommandLineRunner {
 					break;
 				case 2:
 					usuarioService.inicial(scanner);
+					break;
+				case 3:
+					jogoService.inicial(scanner);
 					break;
 
 				default:

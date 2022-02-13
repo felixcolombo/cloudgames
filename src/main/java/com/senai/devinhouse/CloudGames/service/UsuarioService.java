@@ -5,6 +5,7 @@ import com.senai.devinhouse.CloudGames.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -90,11 +91,35 @@ public class UsuarioService {
     }
 
     private void salvar(Scanner scanner) {
-        System.out.println("Informe o Nome da Plataforma");
+        System.out.println("Informe o Nome do Usuario");
         String nome = scanner.next();
+
+        System.out.println("Informe o Login do Usuario");
+        String login = scanner.next();
+
+        System.out.println("Informe a Senha do Usuario");
+        String senha = scanner.next();
+
+        System.out.println("Informe o Email do Usuario");
+        String email = scanner.next();
+
+        System.out.println("Informe a Data de Nascimento do Usuario");
+        String dataNascimento = scanner.next();
+
+        System.out.println("Informe o CPF do Usuario");
+        String cpf= scanner.next();
+
+        System.out.println("Informe o RG do Usuario");
+        String rg = scanner.next();
 
         Usuario usuario = new Usuario();
         usuario.setNome(nome);
+        usuario.setLogin(login);
+        usuario.setSenha(senha);
+        usuario.setEmail(email);
+        usuario.setDataNascimento(LocalDate.parse(dataNascimento));
+        usuario.setCpf(cpf);
+        usuario.setRg(rg);
 
         usuarioRepository.save(usuario);
     }

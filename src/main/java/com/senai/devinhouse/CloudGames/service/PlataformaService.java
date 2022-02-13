@@ -109,7 +109,7 @@ public class PlataformaService {
     }
 
     private void deletar(Scanner scanner) {
-        System.out.println("Informe o id da Plataforma para deletar");
+        System.out.println("Informe o ID da Plataforma para deletar");
         Long id = scanner.nextLong();
 
         plataformaRepository.deleteById(id);
