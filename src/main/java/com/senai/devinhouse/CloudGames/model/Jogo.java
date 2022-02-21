@@ -78,10 +78,10 @@ public class Jogo {
     public String toString() {
         return "Jogo{" +
                 "id=" + id +
-                ", nome='" + nome +
-                ", dataLancamento='" + dataLancamento +
-                ", capa='" + capa +
-                ", genero='" + genero +
+                ", nome='" + nome + '\'' +
+                ", dataLancamento=" + dataLancamento +
+                ", capa='" + capa + '\'' +
+                ", genero=" + genero +
                 ", plataformas=" + plataformas +
                 '}';
     }

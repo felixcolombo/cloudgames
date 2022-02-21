@@ -58,8 +58,9 @@ public class Plataforma {
     public String toString() {
         return "Plataforma{" +
                 "id=" + id +
-                ", nome='" + nome +
+                ", nome='" + nome + '\'' +
                 ", jogo=" + jogo +
+                ", jogos=" + jogos +
                 '}';
     }
 }

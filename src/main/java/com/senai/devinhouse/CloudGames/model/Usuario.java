@@ -94,15 +94,14 @@ public class Usuario {
     public String toString() {
         return "Usuario{" +
                 "id=" + id +
-                ", nome=" + nome +
-                ", login=" + login +
-                ", senha=" + senha +
-                ", email=" + email +
+                ", nome='" + nome + '\'' +
+                ", login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                ", email='" + email + '\'' +
                 ", dataNascimento=" + dataNascimento +
-                ", cpf=" + cpf +
-                ", rg=" + rg +
+                ", cpf='" + cpf + '\'' +
+                ", rg='" + rg + '\'' +
                 '}';
-
     }
 }
 /*
