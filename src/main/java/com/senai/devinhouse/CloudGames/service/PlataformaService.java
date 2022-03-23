@@ -1,8 +1,6 @@
 package com.senai.devinhouse.CloudGames.service;
 
-import com.senai.devinhouse.CloudGames.model.Jogo;
 import com.senai.devinhouse.CloudGames.model.Plataforma;
-import com.senai.devinhouse.CloudGames.repository.JogoRepository;
 import com.senai.devinhouse.CloudGames.repository.PlataformaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,9 +16,6 @@ public class PlataformaService {
     @Autowired
     private PlataformaRepository plataformaRepository;
 
-    @Autowired
-    private JogoRepository jogoRepository;
-
     public void inicial(Scanner scanner) {
         while(system) {
             System.out.println("Qual ação em Plataforma você deseja executar");
@@ -29,7 +24,6 @@ public class PlataformaService {
             System.out.println("2 - Atualizar");
             System.out.println("3 - Deletar");
             System.out.println("4 - Visualizar");
-            System.out.println("5 - Adicionar um Jogo a uma Plataforma");
 
             int action = scanner.nextInt();
 
@@ -46,45 +40,11 @@ public class PlataformaService {
                 case 4:
                     visualizar();
                     break;
-                case 5:
-                    adicionarJogo(scanner);
-                    break;
                 default:
                     system = false;
                     break;
             }
         }
-    }
-
-    private void adicionarJogo(Scanner scanner) {
-        System.out.println("Informe o ID da Plataforma");
-
-        Long idPlataforma = scanner.nextLong();
-
-        Optional<Plataforma> plataformaOptional = plataformaRepository.findById(idPlataforma);
-
-        // early return
-        if(plataformaOptional.isEmpty()) {
-            System.out.println("O id informado é inválido");
-            return;
-        }
-
-        System.out.println("Informe o ID do Jogo");
-
-        Long idJogo = scanner.nextLong();
-
-        Optional<Jogo> jogoOptional = jogoRepository.findById(idJogo);
-
-        // early return
-        if(jogoOptional.isEmpty()) {
-            System.out.println("O ID informado é inválido");
-            return;
-        }
-
-        Plataforma plataforma = plataformaOptional.get();
-        plataforma.adicionarJogo(jogoOptional.get());
-
-        plataformaRepository.save(plataforma);
     }
 
     private void atualizar(Scanner scanner) {
@@ -110,7 +70,15 @@ public class PlataformaService {
 
     private void deletar(Scanner scanner) {
         System.out.println("Informe o ID da Plataforma para deletar");
+
         Long id = scanner.nextLong();
+        Optional<Plataforma> plataformaOptional = plataformaRepository.findById(id);
+
+        // early return
+        if(plataformaOptional.isEmpty()) {
+            System.out.println("O ID informado é inválido");
+            return;
+        }
 
         plataformaRepository.deleteById(id);
     }
@@ -122,12 +90,12 @@ public class PlataformaService {
 
     private void salvar(Scanner scanner) {
         System.out.println("Informe o Nome da Plataforma");
-        String nome = scanner.next();
+        scanner.nextLine();
+        String nome = scanner.nextLine();
 
         Plataforma plataforma = new Plataforma();
         plataforma.setNome(nome);
 
         plataformaRepository.save(plataforma);
     }
-
 }

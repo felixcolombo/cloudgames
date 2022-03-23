@@ -1,10 +1,13 @@
 package com.senai.devinhouse.CloudGames.service;
 
+import com.senai.devinhouse.CloudGames.model.Genero;
 import com.senai.devinhouse.CloudGames.model.Jogo;
 import com.senai.devinhouse.CloudGames.repository.JogoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -62,39 +65,67 @@ public class JogoService {
         System.out.println("Informe o Nome para atualizar");
         scanner.nextLine();
         String nome = scanner.nextLine();
+
+        System.out.println("Informe a Data de Lançamento para atualizar");
+        String dataLancamento = scanner.next();
+
+        System.out.println("Informe a Capa para atualizar");
+        scanner.nextLine();
+        String capa= scanner.nextLine();
+
+        System.out.println("Informe o Gênero para atualizar");
+        String genero= scanner.nextLine();
+
         Jogo jogo = jogoOptional.get();
         jogo.setNome(nome);
+        jogo.setDataLancamento(LocalDate.parse(dataLancamento));
+        jogo.setCapa(capa);
+        jogo.setGenero(Genero.valueOf(genero));
 
         jogoRepository.save(jogo);
     }
 
     private void deletar(Scanner scanner) {
         System.out.println("Informe o ID do Jogo para deletar");
+
         Long id = scanner.nextLong();
+        Optional<Jogo> jogoOptional = jogoRepository.findById(id);
+
+        // early return
+        if(jogoOptional.isEmpty()) {
+            System.out.println("O ID informado é inválido");
+            return;
+        }
 
         jogoRepository.deleteById(id);
     }
 
-    private void visualizar() {
-        Iterable<Jogo> jogos = jogoRepository.findAll();
+    private void visualizar(){
+        List<Jogo> jogos = (List<Jogo>) jogoRepository.findAll();
         jogos.forEach(System.out::println);
+
     }
 
     private void salvar(Scanner scanner) {
         System.out.println("Informe o Nome do Jogo");
-        String nome = scanner.next();
+        scanner.nextLine();
+        String nome = scanner.nextLine();
 
         System.out.println("Informe a Data de Lançamento do Jogo");
         String dataLancamento = scanner.next();
 
         System.out.println("Informe a Capa do Jogo");
-        String capa= scanner.next();
+        scanner.nextLine();
+        String capa= scanner.nextLine();
 
         System.out.println("Informe o Gênero do Jogo");
-        String genero= scanner.next();
+        String genero= scanner.nextLine();
 
         Jogo jogo = new Jogo();
         jogo.setNome(nome);
+        jogo.setDataLancamento(LocalDate.parse(dataLancamento));
+        jogo.setCapa(capa);
+        jogo.setGenero(Genero.valueOf(genero));
 
         jogoRepository.save(jogo);
     }

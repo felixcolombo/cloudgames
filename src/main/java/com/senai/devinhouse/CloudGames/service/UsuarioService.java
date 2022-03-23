@@ -20,14 +20,14 @@ public class UsuarioService {
 
     public void inicial(Scanner scanner) {
         while(system) {
-            System.out.println("Qual ação em Plataforma você deseja executar");
+            System.out.println("Qual ação em Usuário você deseja executar");
             System.out.println("0 - Sair");
             System.out.println("1 - Salvar");
             System.out.println("2 - Atualizar");
             System.out.println("3 - Deletar");
             System.out.println("4 - Visualizar");
             System.out.println("5 - Buscar por Nome");
-            System.out.println("5 - Buscar por Email");
+            System.out.println("6 - Buscar por Email");
 
             int action = scanner.nextInt();
 
@@ -72,45 +72,78 @@ public class UsuarioService {
         System.out.println("Informe o Nome para atualizar");
         scanner.nextLine();
         String nome = scanner.nextLine();
+
+        System.out.println("Informe o Login para atualizar");
+        String login = scanner.nextLine();
+
+        System.out.println("Informe a Senha para atualizar");
+        String senha = scanner.nextLine();
+
+        System.out.println("Informe o Email para atualizar");
+        String email = scanner.nextLine();
+
+        System.out.println("Informe a Data de Nascimento para atualizar");
+        String dataNascimento = scanner.nextLine();
+
+        System.out.println("Informe o CPF para atualizar");
+        String cpf= scanner.nextLine();
+
+        System.out.println("Informe o RG para atualizar");
+        String rg = scanner.nextLine();
+
         Usuario usuario = usuarioOptional.get();
         usuario.setNome(nome);
+        usuario.setLogin(login);
+        usuario.setSenha(senha);
+        usuario.setEmail(email);
+        usuario.setDataNascimento(LocalDate.parse(dataNascimento));
+        usuario.setCpf(cpf);
+        usuario.setRg(rg);
 
         usuarioRepository.save(usuario);
     }
 
     private void deletar(Scanner scanner) {
         System.out.println("Informe o id do Usuário para deletar");
+
         Long id = scanner.nextLong();
+        Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
+
+        // early return
+        if(usuarioOptional.isEmpty()) {
+            System.out.println("O ID informado é inválido");
+            return;
+        }
 
         usuarioRepository.deleteById(id);
     }
 
-    private void visualizar() {
-        Iterable<Usuario> usuarios = usuarioRepository.findAll();
-        usuarios.forEach(System.out::println);
+    public List<Usuario> visualizar(){
+            return (List<Usuario>) usuarioRepository.findAll();
     }
 
     private void salvar(Scanner scanner) {
         System.out.println("Informe o Nome do Usuario");
-        String nome = scanner.next();
+        scanner.nextLine();
+        String nome = scanner.nextLine();
 
         System.out.println("Informe o Login do Usuario");
-        String login = scanner.next();
+        String login = scanner.nextLine();
 
         System.out.println("Informe a Senha do Usuario");
-        String senha = scanner.next();
+        String senha = scanner.nextLine();
 
         System.out.println("Informe o Email do Usuario");
-        String email = scanner.next();
+        String email = scanner.nextLine();
 
         System.out.println("Informe a Data de Nascimento do Usuario");
-        String dataNascimento = scanner.next();
+        String dataNascimento = scanner.nextLine();
 
         System.out.println("Informe o CPF do Usuario");
-        String cpf= scanner.next();
+        String cpf= scanner.nextLine();
 
         System.out.println("Informe o RG do Usuario");
-        String rg = scanner.next();
+        String rg = scanner.nextLine();
 
         Usuario usuario = new Usuario();
         usuario.setNome(nome);
@@ -126,15 +159,23 @@ public class UsuarioService {
 
     private void buscaPorNome(Scanner scanner) {
         System.out.println("Informe o Nome:");
-        String nome = scanner.next();
-        List<Usuario> usuarios = usuarioRepository.findByNomeEndingWith(nome);
+        scanner.nextLine();
+        String nome = scanner.nextLine();
+        List<Usuario> usuarios = usuarioRepository.findByNomeContainingIgnoreCase(nome);
+        if (usuarios.isEmpty()) {
+            System.out.println("Não foram encontrados usuários!");
+        }
         usuarios.forEach(System.out::println);
     }
 
     private void buscaPorEmail(Scanner scanner) {
         System.out.println("Informe o Email:");
-        String email = scanner.next();
+        scanner.nextLine();
+        String email = scanner.nextLine();
         List<Usuario> usuarios = usuarioRepository.findByEmail(email);
+        if (usuarios.isEmpty()) {
+            System.out.println("Não foram encontrados usuários!");
+        }
         usuarios.forEach(System.out::println);
     }
 }

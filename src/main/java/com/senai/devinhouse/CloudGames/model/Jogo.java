@@ -2,7 +2,6 @@ package com.senai.devinhouse.CloudGames.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 public class Jogo {
@@ -19,12 +18,6 @@ public class Jogo {
 
     @Enumerated(EnumType.STRING)
     private Genero genero;
-
-    @OneToMany(mappedBy = "jogo")
-    /*@JoinColumn(name = "id_jogo", referencedColumnName = "id")
-    //select * from jogo j join plataforma p on j.id = p.id_plataforma;
-     */
-    private List<Plataforma> plataformas;
 
     public Long getId() {
         return id;
@@ -66,14 +59,6 @@ public class Jogo {
         this.genero = genero;
     }
 
-    public List<Plataforma> getPlataformas() {
-        return plataformas;
-    }
-
-    public void setPlataformas(List<Plataforma> plataformas) {
-        this.plataformas = plataformas;
-    }
-
     @Override
     public String toString() {
         return "Jogo{" +
@@ -82,9 +67,9 @@ public class Jogo {
                 ", dataLancamento=" + dataLancamento +
                 ", capa='" + capa + '\'' +
                 ", genero=" + genero +
-                ", plataformas=" + plataformas +
                 '}';
     }
+
 }
 /*
 Nesta atividade você deverá criar a entidade Jogo com os atributos:
