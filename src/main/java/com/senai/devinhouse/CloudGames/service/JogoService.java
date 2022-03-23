@@ -14,12 +14,11 @@ import java.util.Scanner;
 @Service
 public class JogoService {
 
-    private boolean system = true;
-
     @Autowired
     private JogoRepository jogoRepository;
 
     public void inicial(Scanner scanner) {
+        boolean system = true;
         while(system) {
             System.out.println("Qual ação em Jogo você deseja executar");
             System.out.println("0 - Sair");

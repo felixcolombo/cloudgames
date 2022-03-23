@@ -12,7 +12,8 @@ import java.util.List;
 public interface UsuarioRepository extends PagingAndSortingRepository<Usuario, Long>,
         JpaSpecificationExecutor<Usuario> {
 
-    List<Usuario> findByNomeContainingIgnoreCase(String nome);
+    @Query(value = "select * from usuario where nome like %:nome% order by nome", nativeQuery = true)
+    List<Usuario> findByName(String nome);
 
     List<Usuario> findByEmail(String email);
 }

@@ -20,7 +20,7 @@ target/
 *.ipr
 
 ### IntelliJ resources ###
-src/main/resources
+src/main/resources*
 
 ### NetBeans ###
 /nbproject/private/

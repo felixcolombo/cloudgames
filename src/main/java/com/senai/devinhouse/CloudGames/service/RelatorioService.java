@@ -12,8 +12,6 @@ import java.util.Scanner;
 @Service
 public class RelatorioService {
 
-    private boolean system = true;
-
     @Autowired
     private RelatorioRepository relatorioRepository;
 
@@ -21,6 +19,7 @@ public class RelatorioService {
     private JogoRepository jogoRepository;
 
     public void inicial(Scanner scanner) {
+        boolean system = true;
         while (system) {
             System.out.println("Qual ação em Jogo você deseja executar");
             System.out.println("0 - Sair");
@@ -41,8 +40,12 @@ public class RelatorioService {
 
     private void buscarJogosGenero(Scanner scanner) {
         System.out.println("Informe o Gênero:");
-        String genero = scanner.next();
-        List<Jogo> jogos = relatorioRepository.findByGenero(genero);
+        scanner.nextLine();
+        String genero = scanner.nextLine();
+        List<Jogo> jogos = jogoRepository.findByGenero(genero);
+        if (jogos.isEmpty()) {
+            System.out.println("Não foram encontrados jogos!");
+        }
         jogos.forEach(System.out::println);
     }
 }

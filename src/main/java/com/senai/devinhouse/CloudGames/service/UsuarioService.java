@@ -13,12 +13,11 @@ import java.util.Scanner;
 @Service
 public class UsuarioService {
 
-    private boolean system = true;
-
     @Autowired
     private UsuarioRepository usuarioRepository;
 
     public void inicial(Scanner scanner) {
+        boolean system = true;
         while(system) {
             System.out.println("Qual ação em Usuário você deseja executar");
             System.out.println("0 - Sair");
@@ -161,7 +160,7 @@ public class UsuarioService {
         System.out.println("Informe o Nome:");
         scanner.nextLine();
         String nome = scanner.nextLine();
-        List<Usuario> usuarios = usuarioRepository.findByNomeContainingIgnoreCase(nome);
+        List<Usuario> usuarios = usuarioRepository.findByName(nome);
         if (usuarios.isEmpty()) {
             System.out.println("Não foram encontrados usuários!");
         }

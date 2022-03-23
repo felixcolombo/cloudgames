@@ -11,12 +11,11 @@ import java.util.Scanner;
 @Service
 public class PlataformaService {
 
-    private boolean system = true;
-
     @Autowired
     private PlataformaRepository plataformaRepository;
 
     public void inicial(Scanner scanner) {
+        boolean system = true;
         while(system) {
             System.out.println("Qual ação em Plataforma você deseja executar");
             System.out.println("0 - Sair");
